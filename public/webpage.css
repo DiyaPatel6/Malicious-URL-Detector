@@ -1,0 +1,87 @@
+body{                  
+  display: flex;
+  margin-top: auto;
+  background-color: #aaaaaa;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-family:'Times New Roman', Times, serif;
+  height: 100vh;
+}
+
+.container{
+  background-color: #dddddd;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  font-size: 20px;
+}
+
+.check_button{
+  font-family:'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: #dddddd;
+  background-color: #003166;
+  border-radius: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-right: 30px;
+  padding-left: 30px;
+  cursor: pointer;
+  width: auto;
+  align-self: center;
+  margin-bottom: 25px;
+}
+
+.check_button:hover{
+background-color: #004999;
+}
+
+.check_button:active{
+  background-color: #0062cc;
+  }
+
+.input_box{
+  width: 400px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 4px solid;
+  border-radius: 5px;
+  border-color: #6b6b6b;
+  border-width: 2px;
+  background-color: #dddddd;
+  color: black;
+  font-family:'Times New Roman', Times, serif;
+  align-self: center;
+  font-size: 15px;
+}
+
+
+
+.safe{
+  padding: 10px;
+  color: white;
+  background-color: #006a00;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.suspicious{
+  padding: 10px;
+  color: black;
+  background-color: #eece00f1;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.dangerous{  
+  padding: 10px;
+  color: white;
+  background-color: rgb(137, 0, 0);
+  border-radius: 5px;
+  margin: auto;
+}
