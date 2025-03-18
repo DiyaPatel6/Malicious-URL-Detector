@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet", href="webpage.css">
-  <script src="webpage.js"></script>
 </head>
 <body>
+
   <div class="container">
     <h2>Malicious Website Detector</h2>
-    <input class="input_box" type="text" placeholder="Enter a website URL">
-    <button class="check_button" onclick="result()">Check URL</button>
+    <form id="check_form">
+      <input class="input_box" type="text" placeholder="Enter a website URL">
+      <button class="check_button" onclick="result()">Check URL</button>
+    </form>
+    
     <div id="returnMessage" class="output"></div>
   </div>
+  <script src="webpage.js"></script>
 
 </body>
 </html>

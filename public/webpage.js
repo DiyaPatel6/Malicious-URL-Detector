@@ -1,3 +1,21 @@
+// document.addEventListener("DOMContentLoaded", function onload(){
+
+//   const form = document.getElementById("check_form");
+//   console.log(form); //like print in python
+  
+// })
+
+
+const form = document.getElementById("check_form");
+console.log(form); //like print in python
+
+form.addEventListener("submit", function onsubmit(event){
+  event.preventDefault();                        
+  console.log("submit", event);
+})
+
+//get access form data 
+
 function result()
 {
   const userInput = document.querySelector(".input_box").value;       //gets the userinput
