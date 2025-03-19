@@ -17,5 +17,3 @@ app.use(express.static(path.join(__dirname, '/public')));  //tells server to ser
 app.listen(port, () => {                         //tells server to start listening on port 3000
   console.log('server listening on port 3000');  //prints the message
 });
-
-
