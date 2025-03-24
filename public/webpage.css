@@ -61,6 +61,11 @@ background-color: #004999;
 }
 
 
+.invalidURL{
+  margin-left: 4px;
+  color: #003166;
+}
+
 
 .safe{
   padding: 10px;
