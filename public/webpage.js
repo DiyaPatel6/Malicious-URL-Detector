@@ -1,31 +1,34 @@
 const returnMessage = document.getElementById("returnMessage");    
 const form = document.getElementById("check_form");
+let threatPoints = 0; 
+
 
 form.addEventListener("submit", function onsubmit(event){
   event.preventDefault();                
 
   const formData = new FormData(form);
   const userInput = formData.get("input_box");
-  
-  if (!userInput.includes("."))
+  threatPoints = 0
+
+  const urlFormat = /^https?:\/\/([0-9a-z-]+\.)+[0-9a-z]{2,6}(\/[0-9a-z-]*)?$/
+
+  if (!urlFormat.test(userInput))
   {
     returnMessage.textContent = "Please enter a valid URL";
     returnMessage.className = "output invalidURL";
     return;
   }
 
-
-
-
-  threatPoints = 0;
-
+  
+ 
+  
   urlCheck(userInput);
 
 
-  if (threatPoints <= 1) {
+  if (threatPoints == 0) {
     returnMessage.textContent = "✓ Safe Site (proceed) ✓";
-    returnMessage.className = "output safe";
-  } else if (2 <= threatPoints <= 5) {
+    returnMessage.className = "output safe"; 
+  } else if (threatPoints >= 1 && threatPoints <= 2) {
     returnMessage.textContent = "! Suspicious Site (proceed with caution) !";
     returnMessage.className = "output suspicious";
   } else {
@@ -37,24 +40,41 @@ form.addEventListener("submit", function onsubmit(event){
 
 
 
+
 function urlCheck(userInput)
 {
 
-  const tld = /\.(info|top|shop|goog|cn|ru|rf|icu|gd|sbs|vip|cc|xyz|app|click|dev|online)$/;  //add more
-  const dashes = /--+/;
+ const tld = /\.(org|com|ca|edu|net)\/?$/;  //add more
+ const dashes = /--+/;
+ const keywords = /(claim|reward|giveaway|app|free|bonus|promo)/i; //i flag for lettercase
 
-  if (tld.test(userInput))
-  {
-    threatPoints += 1;
-  }
-
-  if (dashes.test(userInput))
-  {
-    threatPoints += 1;
-  }
+ if (!tld.test(userInput)){
+  threatPoints += 1;
+  console.log("tld");}
 
 
-  console.log(threatPoints);
+ if (dashes.test(userInput)) {
+  threatPoints += 1;
+  console.log("dash");}
+
+
+ if (keywords.test(userInput)){
+  threatPoints += 1;
+  console.log("keyword");}
+
   
-  
+
+
+
+
+ console.log(threatPoints);
+ 
 }
+
+
+
+
+
+
+
+
