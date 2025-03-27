@@ -17,9 +17,9 @@ app.get('/', (req, res) => {    //tells server to listen for a 'get' request
 app.use(express.json({limit: '1mb'})); //prevents too much data at once
 
 app.post("/check-url", (req, res) => { //set up route to receive the request
- console.log("I got a request!");
- console.log(req.body);
- res.status(200).json({ message: "Request received!" }); // Respond back with a JSON response
+ const userInput = req.body.userInput;
+ const threatPoints = urlCheck(userInput);
+ res.status(200).json(threatPoints); // Respond back with a JSON response
 });
 
 
@@ -30,3 +30,33 @@ app.use(express.static(path.join(__dirname, '/public')));  //tells server to ser
 app.listen(port, () => {                         //tells server to start listening on port 3000
  console.log('server listening on port 3000');  //prints the message
 });
+
+
+
+
+function urlCheck(userInput) {
+  let threatPoints = 0;
+
+  const tld = /\.(org|com|ca|edu|net)\/?$/; //add more
+  const dashes = /--+/;
+  const keywords = /(claim|reward|giveaway|app|free|bonus|promo)/i; //i flag for lettercase
+
+  if (!tld.test(userInput)) {
+    threatPoints += 1;
+    //console.log("tld");
+  }
+
+  if (dashes.test(userInput)) {
+    threatPoints += 1;
+    //console.log("dash");
+  }
+
+  if (keywords.test(userInput)) {
+    threatPoints += 1;
+    //console.log("keyword");
+  }
+
+  //console.log(threatPoints);
+
+  return threatPoints;
+}
