@@ -1,62 +1,88 @@
-import express from "express"; //imports the Express framework
+import dotenv from 'dotenv'; 
+dotenv.config(); 
+const apiKey = process.env.virusTotalKey; 
+
+
+import express from "express"; 
 import path from "path"; 
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const app = express(); //create an instance of Express
-const port = 3000; //port is what allows access to your server (3000 is a common choice)
+const app = express(); 
+const port = 3000; 
 
-app.get('/', (req, res) => {    //tells server to listen for a 'get' request
- res.sendFile(path.join(__dirname, '/public', 'webpage.html'));      //when url is visited, it responds with the message
+app.get('/', (req, res) => {    
+ res.sendFile(path.join(__dirname, '/public', 'webpage.html'));     
 });
 
 
+app.use(express.json({limit: '1mb'})); 
 
-app.use(express.json({limit: '1mb'})); //prevents too much data at once
-
-app.post("/check-url", (req, res) => { //set up route to receive the request
+app.post("/check-url", (req, res) => { 
  const userInput = req.body.userInput;
- const threatPoints = urlCheck(userInput);
- res.status(200).json(threatPoints); // Respond back with a JSON response
+ const threatPoints = urlCheck(userInput) + virusTotal(userInput); //added virusTotal
+ res.status(200).json(threatPoints); 
+});
+
+
+app.use(express.static(path.join(__dirname, '/public')));  
+
+app.listen(port, () => {                        
+ console.log('server listening on port 3000');  
 });
 
 
 
 
-app.use(express.static(path.join(__dirname, '/public')));  //tells server to serve the html, css, js files in the public directory
-
-app.listen(port, () => {                         //tells server to start listening on port 3000
- console.log('server listening on port 3000');  //prints the message
-});
-
-
-
-
-function urlCheck(userInput) {
+async function urlCheck(userInput) {
   let threatPoints = 0;
 
-  const tld = /\.(org|com|ca|edu|net)\/?$/; //add more
+  const tld = /\.(org|com|ca|edu|net)\/?$/; 
   const dashes = /--+/;
-  const keywords = /(claim|reward|giveaway|app|free|bonus|promo)/i; //i flag for lettercase
+  const keywords = /(claim|reward|giveaway|app|free|bonus|promo)/i; 
 
   if (!tld.test(userInput)) {
-    threatPoints += 1;
-    //console.log("tld");
-  }
+    threatPoints += 1;}
 
   if (dashes.test(userInput)) {
-    threatPoints += 1;
-    //console.log("dash");
-  }
+    threatPoints += 1;}
 
   if (keywords.test(userInput)) {
-    threatPoints += 1;
-    //console.log("keyword");
+    threatPoints += 1;}
+
+  return threatPoints;
+}
+
+
+
+async function virusTotal(userInput) {
+  let threatPoints = 0;
+
+  try {
+    const response = await fetch(`https://www.virustotal.com/api/v3/urls/${userInput}`, {
+      method: "GET", 
+      headers: {
+        "x-apikey": process.env.virusTotalKey 
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Could not fetch data from VirusTotal');
+    }
+    const data = await response.json();
+    console.log(data);
+
+    const maliciousCount = data.data.attributes.last_analysis_stats.malicious;
+    const suspiciousCount = data.data.attributes.last_analysis_stats.suspicious;
+
+    if (maliciousCount > 0){
+      threatPoints += 1;}
+    if (suspiciousCount > 0){
+      threatPoints += 1;}
   }
-
-  //console.log(threatPoints);
-
+  catch(error){
+    console.error("Error calling VirusTotal API:", error);
+  }
   return threatPoints;
 }
