@@ -36,7 +36,7 @@ form.addEventListener("submit", async function onsubmit(event) {
     console.error(err);
   }
 
-  const urlFormat = /^https?:\/\/([0-9a-z-]+\.)+[0-9a-z]{2,6}(\/[0-9a-z-]*)?$/;
+  const urlFormat = /^https?:\/\/([0-9a-z-]+\.)+[0-9a-z]{2,10}(\/[0-9a-z-]*)?$/;
   if (!urlFormat.test(userInput)) {
     returnMessage.textContent = "Please enter a valid URL";
     returnMessage.className = "output invalidURL";
