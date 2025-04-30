@@ -24,7 +24,7 @@ form.addEventListener("submit", async function onsubmit(event) {
     if (threatPoints == 0) {
       returnMessage.textContent = "✓ Safe Site (proceed) ✓";
       returnMessage.className = "output safe";
-    } else if (threatPoints >= 1 && threatPoints <= 2) {
+    } else if (threatPoints >= 1 && threatPoints <= 3) {
       returnMessage.textContent = "! Suspicious Site (proceed with caution) !";
       returnMessage.className = "output suspicious";
     } else {
@@ -36,7 +36,8 @@ form.addEventListener("submit", async function onsubmit(event) {
     console.error(err);
   }
 
-  const urlFormat = /^https?:\/\/([0-9a-z-]+\.)+[0-9a-z]{2,10}(\/[0-9a-z-]*)?$/;
+
+  const urlFormat = /^https?:\/\/([a-z0-9-]+\.)+[a-z]{2,}(\/.*)?$/i;
   if (!urlFormat.test(userInput)) {
     returnMessage.textContent = "Please enter a valid URL";
     returnMessage.className = "output invalidURL";
