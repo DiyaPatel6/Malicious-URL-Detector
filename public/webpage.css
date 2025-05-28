@@ -43,7 +43,46 @@ background-color: #004999;
 
 .check_button:active{
   background-color: #0062cc;
-  }
+}
+
+.history_button{
+  font-family:'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: #dddddd;
+  background-color: #525f6d;
+  border-radius: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-right: 30px;
+  padding-left: 30px;
+  cursor: pointer;
+  width: auto;
+  align-self: center;
+}
+
+.history_button:hover{
+  background-color: #6f869f;
+}
+
+.history_button:active{
+  background-color: #9cb4cf;
+}
+
+.history_box{
+  display: none;
+  max-height: 200px;
+  border-radius: 1px;
+  border: 1px solid #000000;
+  overflow: auto;
+  text-align: left;
+  font-size: 15px;
+  top: 100px;
+  padding: 10px;
+}
+
+.seperator{
+  border-top: 2px solid black;
+}
 
 .input_box{
   width: 400px;
@@ -60,12 +99,10 @@ background-color: #004999;
   font-size: 15px;
 }
 
-
 .invalidURL{
   margin-left: 4px;
   color: #003166;
 }
-
 
 .safe{
   padding: 10px;
