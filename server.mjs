@@ -20,7 +20,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/', (req, res) => {    
- res.sendFile(path.join(__dirname, '/public', 'webpage.html'));     
+ res.sendFile(path.join(__dirname, '/public', 'index.html'));     
 });
 
 app.use(express.json({limit: '1mb'})); 
