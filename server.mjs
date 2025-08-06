@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express(); 
-const port = 3000; 
+const port = process.env.PORT || 3000;
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, 
@@ -52,8 +52,9 @@ for(let i = 0; i < threatPoints.length; i++){
 app.use(express.static(path.join(__dirname, '/public')));  
 
 app.listen(port, () => {                        
- console.log('server listening on port 3000');  
+  console.log(`server listening on port ${port}`);  
 });
+
 
 async function urlCheck(userInput) {
   let threatPoints = 0;

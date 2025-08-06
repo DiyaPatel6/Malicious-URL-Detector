@@ -2,12 +2,15 @@
   "name": "malicious-url-detector",
   "version": "1.0.0",
   "description": "Malicious URL Detector",
-  "main": "api/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node api/index.js",
-    "dev": "vercel dev"
+    "start": "node server.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
